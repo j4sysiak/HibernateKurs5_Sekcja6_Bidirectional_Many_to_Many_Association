@@ -2,10 +2,13 @@ package pl.jaceksysiak.demo.entity;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -13,6 +16,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -26,6 +30,11 @@ public class User {
 	@GeneratedValue
 	@Column(name = "USER_ID")
 	private Long userId;
+
+	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "users")
+	private Set<Account> accounts = new HashSet<Account>();
+
+	
 
 	@Column(name = "FIRST_NAME")
 	private String firstName;
@@ -57,6 +66,7 @@ public class User {
 	public int getAge() {
 		return age;
 	}
+
 
 	public void setAge(int age) {
 		this.age = age;
@@ -134,5 +144,13 @@ public class User {
 		this.createdBy = createdBy;
 	}
 
-	
+
+	public Set<Account> getAccounts() {
+		return accounts;
+	}
+
+	public void setAccounts(Set<Account> accounts) {
+		this.accounts = accounts;
+	}
+
 }

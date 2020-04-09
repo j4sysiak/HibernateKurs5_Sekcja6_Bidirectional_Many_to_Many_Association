@@ -37,13 +37,21 @@ public class Application_CreateData {
 			
 			account.getUsers().add(user);
 			account.getUsers().add(user2);
+			user.getAccounts().add(account);
+			user2.getAccounts().add(account);
+			
 			account2.getUsers().add(user);
 			account2.getUsers().add(user2);
+			user.getAccounts().add(account2);
+			user2.getAccounts().add(account2);
 			
 			
 			//Saving the Object to DB
 			session.save(account);
-			session.save(account2);			
+			session.save(account2);	
+			
+			User dbUser = (User) session.get(User.class, user.getUserId());
+			System.out.println(dbUser.getAccounts().iterator().next().getName());
 			 	
 			// commit transaction
 			session.getTransaction().commit();
